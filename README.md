@@ -37,7 +37,7 @@ require('tabnine').setup({
 
 `:TabnineHub` - to open Tabnine Hub and log in to your account
 
-## lualine integration
+## lualine(管statuline的) integration  
 
 This plugin exposes a lualine `tabnine` component. e.g:
 
