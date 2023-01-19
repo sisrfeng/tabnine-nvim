@@ -1,18 +1,18 @@
-local api = vim.api
-local uv = vim.loop
-local fn = vim.fn
-local TabnineBinary = require("tabnine.binary")
-local utils = require("tabnine.utils")
-local M = {}
-local plugin_version = "0.3.0"
-local max_chars = 3000
-local tabnine_namespace = api.nvim_create_namespace("tabnine")
-local requests_counter = 0
-local current_completion = nil
-local service_level = nil
-local tabnine_binary = TabnineBinary:new({ plugin_version = plugin_version })
+local api                     = vim.api
+local uv                      = vim.loop
+local fn                      = vim.fn
+local TabnineBinary           = require("tabnine.binary")
+local utils                   = require("tabnine.utils")
+local M                       = {}
+local plugin_version          = "0.3.0"
+local max_chars               = 3000
+local tabnine_namespace       = api.nvim_create_namespace("tabnine")
+local requests_counter        = 0
+local current_completion      = nil
+local service_level           = nil
+local tabnine_binary          = TabnineBinary:new({ plugin_version = plugin_version })
 local valid_end_of_line_regex = vim.regex("^\\s*[)}\\]\"'`]*\\s*[:{;,]*\\s*$")
-local tabnine_hl_group = "TabnineSuggestion"
+local tabnine_hl_group        = "TabnineSuggestion"
 
 local function end_of_line()
 	return api.nvim_buf_get_text(0, fn.line(".") - 1, fn.col(".") - 1, fn.line(".") - 1, fn.col("$"), {})[1]
@@ -142,9 +142,12 @@ local function bind_to_dismiss(dismiss_keymap)
 end
 
 local function create_user_commands()
-	api.nvim_create_user_command("TabnineHub", function()
-		tabnine_binary:request({ Configuration = {} })
-	end, {})
+	api.nvim_create_user_command("TabnineHub",
+                                 function()
+                                     tabnine_binary:request({ Configuration = {} })
+                                 end, 
+                                 {}
+                                )
 end
 
 local function create_auto_commands(config)
